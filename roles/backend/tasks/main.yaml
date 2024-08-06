@@ -37,6 +37,11 @@
   notify: 
   - daemon-reload
 
+- name: enable backend service
+  ansible.builtin.service:
+    name: backend
+    enabled: yes
+
 - name: install python mysql dependencies
   ansible.builtin.pip:
     name: 
@@ -53,10 +58,9 @@
     state: import
     name: all
 
-- name: start and enable backend service
+- name: restart backend service
   tags:
   - deployment
   ansible.builtin.service:
     name: backend
     state: restarted
-    enabled: yes
